@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:test123/view_model/test/test_state.dart';
+import '/view_model/test/test_state.dart';
 
-// import 'package:provider/provider.dart';
+import 'package:provider/provider.dart';
 import '/utils/typedef_models.dart';
 import '/view_model/test/test_cubit.dart';
 import '/resource/status_switcher.dart';
@@ -11,9 +11,6 @@ import 'package:shimmer/shimmer.dart';
 class TestView extends StatelessWidget {
   final TestViewModel cubit;
   const TestView({super.key, required this.cubit});
-  Future<void> refresh() async {
-    await cubit.test();
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -25,7 +22,7 @@ class TestView extends StatelessWidget {
             child: const Text('remove')),
       ),
       body: RefreshIndicator.adaptive(
-        onRefresh: refresh,
+        onRefresh: cubit.refresh,
         child: ListView(
           children: [
             BlocBuilder(

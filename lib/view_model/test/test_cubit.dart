@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:test123/utils/typedef_models.dart';
-import 'package:test123/view_model/test/test_state.dart';
+import '/view_model/test/test_state.dart';
 import '/utils/routes/routes_name.dart';
 import '/view_model/local/insecure_local_storage.dart';
 import '/resource/app_navigator.dart';
@@ -29,4 +28,8 @@ class TestViewModel extends Cubit<TestState> {
   removeToken(BuildContext context) => _localStorage
       .removeUserInfo()
       .then((value) => _navigator.pushNamed(context, RoutesName.login));
+
+  Future<void> refresh() async {
+    await test();
+  }
 }
