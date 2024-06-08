@@ -17,7 +17,9 @@ class Routes {
         return pageRoute.getPageRoute(const SplashView());
 
       case RoutesName.login:
-        return pageRoute.getPageRoute(const LoginView());
+        return pageRoute.getPageRoute(LoginView(
+          cubit: getIt(),
+        ));
       case RoutesName.signUp:
         return pageRoute.getPageRoute(const SignUpView());
       case RoutesName.forgotPassword:

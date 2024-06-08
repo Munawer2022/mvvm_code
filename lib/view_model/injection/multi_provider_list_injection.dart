@@ -14,9 +14,9 @@ List<ChangeNotifierProvider> multiProvidersListInjection = [
   ChangeNotifierProvider<SignUpViewModel>(
     create: (_) => getIt(),
   ),
-  ChangeNotifierProvider<LoginViewModel>(
-    create: (_) => getIt(),
-  ),
+  // ChangeNotifierProvider<LoginViewModel>(
+  //   create: (_) => getIt(),
+  // ),
   ChangeNotifierProvider<ForgotPasswordViewModel>(
     create: (_) => getIt(),
   ),
