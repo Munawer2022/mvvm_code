@@ -10,25 +10,17 @@ import 'network_base_api_services.dart';
 class HttpNetwork implements NetworkBaseApiServices {
   final LocalUserInfoStoreViewModel _userInfoDataSources;
   HttpNetwork(this._userInfoDataSources);
-  Future<String> _getToken() async {
-    while (_userInfoDataSources.userInfo.token.isEmpty) {
-      await Future.delayed(const Duration(milliseconds: 100));
-    }
-    return _userInfoDataSources.userInfo.token;
-  }
 
   @override
   Future<T> getApi<T>({required String url}) async {
-    String token = await _getToken();
-    print("Using token: $token");
-
-    // print("token ${_userInfoDataSources.userInfo.token}");
-
     T responseJson;
     try {
       final response = await http.get(
         Uri.parse(url),
-        headers: {'Authorization': 'Bearer $token'},
+        headers: {
+          'Authorization': 'Bearer ${_userInfoDataSources.state.token}'
+          // 'Authorization': 'Bearer ${_userInfoDataSources.userInfo.token}'
+        },
       ).timeout(const Duration(seconds: 10));
       responseJson = returnResponse<T>(response);
     } on TimeoutException {
@@ -74,7 +66,10 @@ class HttpNetwork implements NetworkBaseApiServices {
         Uri.parse(url),
         body: body,
         headers: headers ??
-            {'Authorization': 'Bearer ${_userInfoDataSources.userInfo.token}'},
+            {
+              'Authorization': 'Bearer ${_userInfoDataSources.state.token}'
+              // 'Authorization': 'Bearer ${_userInfoDataSources.userInfo.token}'
+            },
       ).timeout(const Duration(seconds: 10));
 
       responseJson = returnResponse<T>(response);

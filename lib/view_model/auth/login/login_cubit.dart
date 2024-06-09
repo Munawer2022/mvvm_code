@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import '/view_model/test/test_cubit.dart';
 import '/view_model/auth/login/login_state.dart';
 import '/view_model/local/insecure_local_storage.dart';
 import '/view_model/local/local_user_info_store_view_model.dart';
@@ -12,9 +13,10 @@ class LoginViewModel extends Cubit<LoginState> {
   final InsecureLocalStorage _userInfo;
   final AppNavigator _navigator;
   final LocalUserInfoStoreViewModel _userInfoDataSources;
+  final TestViewModel _viewModel;
 
   LoginViewModel(this._baseApiService, this._userInfo, this._navigator,
-      this._userInfoDataSources)
+      this._userInfoDataSources, this._viewModel)
       : super(LoginState.initial());
 
   Future<void> login(
@@ -24,9 +26,9 @@ class LoginViewModel extends Cubit<LoginState> {
     _baseApiService.login(body: body).then((userInfo) {
       emit(state.copyWith(isLoading: false));
       _userInfo.saveUserInfo(userInfo: userInfo).then((value) {
-        _userInfoDataSources
-            .setUserInfoDataSources(userInfo: userInfo)
-            .then((value) => _navigator.pushNamed(context, RoutesName.test));
+        _userInfoDataSources.setUserInfoDataSources(userInfo: userInfo).then(
+            (value) => _viewModel.test().then(
+                (value) => _navigator.pushNamed(context, RoutesName.test)));
       });
     }).onError((error, stackTrace) {
       emit(state.copyWith(isLoading: false, error: error.toString()));

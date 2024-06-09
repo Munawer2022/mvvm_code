@@ -4,6 +4,7 @@
 
 import 'package:get_it/get_it.dart';
 import 'package:test123/view_model/auth/login/login_cubit.dart';
+import 'package:test123/view_model/connectivity.dart';
 import '/view_model/local/local_user_info_store_view_model.dart';
 import '/repository/auth/forgot_password/forgot_password_base_api_service.dart';
 import '/resource/app_navigator.dart';
@@ -33,17 +34,16 @@ Future<void> init() async {
       LocalUserInfoStoreViewModel());
   getIt.registerSingleton<NetworkBaseApiServices>(HttpNetwork(getIt()));
 /*
+************************ Test ************************
+*/
+  getIt.registerSingleton<TestBaseApiServices>(TestRepository(getIt()));
+  getIt.registerSingleton<TestViewModel>(
+      TestViewModel(getIt(), getIt(), getIt()));
+/*
 ************************ Splash ************************
 */
   getIt.registerSingleton<SplashViewModel>(
-      SplashViewModel(getIt(), getIt(), getIt()));
-
-/*
-************************ Login ************************
-*/
-  getIt.registerSingleton<LoginBaseApiServices>(LoginRepository(getIt()));
-  getIt.registerSingleton<LoginViewModel>(
-      LoginViewModel(getIt(), getIt(), getIt(), getIt()));
+      SplashViewModel(getIt(), getIt(), getIt(), getIt()));
 
 /*
 ************************ SignUp ************************
@@ -58,10 +58,13 @@ Future<void> init() async {
       ForgotPasswordRepository(getIt()));
   getIt.registerSingleton<ForgotPasswordViewModel>(
       ForgotPasswordViewModel(getIt(), getIt(), getIt(), getIt()));
+
 /*
-************************ Test ************************
+************************ Login ************************
 */
-  getIt.registerSingleton<TestBaseApiServices>(TestRepository(getIt()));
-  getIt.registerSingleton<TestViewModel>(
-      TestViewModel(getIt(), getIt(), getIt())..test());
+  getIt.registerSingleton<LoginBaseApiServices>(LoginRepository(getIt()));
+  getIt.registerSingleton<LoginViewModel>(
+      LoginViewModel(getIt(), getIt(), getIt(), getIt(), getIt()));
+
+  getIt.registerSingleton<ConnectivityCubit>(ConnectivityCubit());
 }

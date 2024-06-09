@@ -6,6 +6,7 @@ import '/resource/app_theme.dart';
 import '/utils/routes/routes.dart';
 import '/utils/routes/routes_name.dart';
 import '/view_model/injection/multi_provider_list_injection.dart';
+import 'view_model/connectivity.dart';
 
 void main() async {
   // setCustomSystemUIOverlayStyle();
@@ -25,6 +26,7 @@ class MyApp extends StatelessWidget {
         minTextAdapt: true,
         splitScreenMode: true,
         child: MaterialApp(
+          navigatorKey: navigatorKey,
           debugShowCheckedModeBanner: false,
           theme: lightTheme,
           initialRoute: RoutesName.splash,
