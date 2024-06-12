@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import '../../local/local_user_info_store_view_model.dart';
+import '/view_model/local/insecure_local_storage.dart';
+import '/view_model/local/local_user_info_store_view_model.dart';
+import '/resource/navigation/app_navigator.dart';
 import '/repository/auth/sign_up/sign_up_base_api_service.dart';
-import '../../local/insecure_local_storage.dart';
-import '/resource/app_navigator.dart';
 import '/utils/routes/routes_name.dart';
 
 class SignUpViewModel extends ChangeNotifier {
@@ -30,7 +30,7 @@ class SignUpViewModel extends ChangeNotifier {
       setLoading(false);
       _userInfo.saveUserInfo(userInfo: userInfo).then((value) {
         _userInfoDataSources.setUserInfoDataSources(userInfo: userInfo);
-        _navigator.pushNamed(context, RoutesName.test);
+        _navigator.pushNamed(context: context, routeName: RoutesName.test);
       });
     }).onError((error, stackTrace) => setLoading(false));
   }

@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import '/resource/navigation/app_navigator.dart';
 import '/view_model/test/test_cubit.dart';
 import '/view_model/auth/login/login_state.dart';
 import '/view_model/local/insecure_local_storage.dart';
 import '/view_model/local/local_user_info_store_view_model.dart';
 import '/repository/auth/login/login_base_api_service.dart';
-import '/resource/app_navigator.dart';
 import '/utils/routes/routes_name.dart';
 
 class LoginViewModel extends Cubit<LoginState> {
@@ -27,8 +27,8 @@ class LoginViewModel extends Cubit<LoginState> {
       emit(state.copyWith(isLoading: false));
       _userInfo.saveUserInfo(userInfo: userInfo).then((value) {
         _userInfoDataSources.setUserInfoDataSources(userInfo: userInfo).then(
-            (value) => _viewModel.test().then(
-                (value) => _navigator.pushNamed(context, RoutesName.test)));
+            (value) => _viewModel.test().then((value) => _navigator.pushNamed(
+                context: context, routeName: RoutesName.test)));
       });
     }).onError((error, stackTrace) {
       emit(state.copyWith(isLoading: false, error: error.toString()));

@@ -2,13 +2,15 @@
 ************************ hello_detail ************************
 */
 
+import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:get_it/get_it.dart';
-import 'package:test123/view_model/auth/login/login_cubit.dart';
-import 'package:test123/view_model/connectivity.dart';
+import '/resource/navigation/app_navigator.dart';
+import '/view_model/local/insecure_local_storage.dart';
+import '/utils/show/show_error/show_errors.dart';
+import '/view_model/auth/login/login_cubit.dart';
+import '/view_model/internet_connectivity_checker_view_model.dart';
 import '/view_model/local/local_user_info_store_view_model.dart';
 import '/repository/auth/forgot_password/forgot_password_base_api_service.dart';
-import '/resource/app_navigator.dart';
-import '../local/insecure_local_storage.dart';
 import '/data/network/http_network.dart';
 import '/data/network/network_base_api_services.dart';
 import '/repository/auth/login/login_base_api_service.dart';
@@ -33,12 +35,17 @@ Future<void> init() async {
   getIt.registerSingleton<LocalUserInfoStoreViewModel>(
       LocalUserInfoStoreViewModel());
   getIt.registerSingleton<NetworkBaseApiServices>(HttpNetwork(getIt()));
+  getIt.registerSingleton<Connectivity>(Connectivity());
+  getIt.registerSingleton<ShowError>(ShowError());
+
+  getIt.registerSingleton<InternetConnectivityCheckerViewModel>(
+      InternetConnectivityCheckerViewModel(getIt(), getIt()));
 /*
 ************************ Test ************************
 */
   getIt.registerSingleton<TestBaseApiServices>(TestRepository(getIt()));
   getIt.registerSingleton<TestViewModel>(
-      TestViewModel(getIt(), getIt(), getIt()));
+      TestViewModel(getIt(), getIt(), getIt(), getIt()));
 /*
 ************************ Splash ************************
 */
@@ -65,6 +72,4 @@ Future<void> init() async {
   getIt.registerSingleton<LoginBaseApiServices>(LoginRepository(getIt()));
   getIt.registerSingleton<LoginViewModel>(
       LoginViewModel(getIt(), getIt(), getIt(), getIt(), getIt()));
-
-  getIt.registerSingleton<ConnectivityCubit>(ConnectivityCubit());
 }

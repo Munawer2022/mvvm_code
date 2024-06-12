@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
+import '/resource/global.dart';
 import '/view_model/injection/injection_container.dart';
 import '/resource/app_theme.dart';
 import '/utils/routes/routes.dart';
 import '/utils/routes/routes_name.dart';
 import '/view_model/injection/multi_provider_list_injection.dart';
-import 'view_model/connectivity.dart';
+import '/utils/show/checker_navigator_observer.dart';
 
 void main() async {
   // setCustomSystemUIOverlayStyle();
@@ -27,10 +28,12 @@ class MyApp extends StatelessWidget {
         splitScreenMode: true,
         child: MaterialApp(
           navigatorKey: navigatorKey,
+          scaffoldMessengerKey: scaffoldMessengerKey,
+          navigatorObservers: [CheckerNavigatorObserver()],
           debugShowCheckedModeBanner: false,
           theme: lightTheme,
           initialRoute: RoutesName.splash,
-          onGenerateRoute: Routes.generateRoute,
+          onGenerateRoute: Routes().generateRoute,
         ),
       );
 }

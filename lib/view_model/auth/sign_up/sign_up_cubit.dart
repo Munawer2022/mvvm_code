@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import '/resource/navigation/app_navigator.dart';
 import '/repository/auth/sign_up/sign_up_base_api_service.dart';
 import '/view_model/auth/sign_up/sign_up_state.dart';
 import '/view_model/local/insecure_local_storage.dart';
 import '/view_model/local/local_user_info_store_view_model.dart';
-import '/resource/app_navigator.dart';
 import '/utils/routes/routes_name.dart';
 
 class SignUpViewModel extends Cubit<SignUpState> {
@@ -24,9 +24,9 @@ class SignUpViewModel extends Cubit<SignUpState> {
     _baseApiService.signUp(body: body).then((userInfo) {
       emit(state.copyWith(isLoading: false));
       _userInfo.saveUserInfo(userInfo: userInfo).then((value) {
-        _userInfoDataSources
-            .setUserInfoDataSources(userInfo: userInfo)
-            .then((value) => _navigator.pushNamed(context, RoutesName.test));
+        _userInfoDataSources.setUserInfoDataSources(userInfo: userInfo).then(
+            (value) => _navigator.pushNamed(
+                context: context, routeName: RoutesName.test));
       });
     }).onError((error, stackTrace) {
       emit(state.copyWith(isLoading: false, error: error.toString()));
