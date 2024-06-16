@@ -4,6 +4,10 @@
 
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:get_it/get_it.dart';
+import 'package:test123/view_model/theme/get_theme.dart';
+import 'package:test123/view_model/theme/theme_view_model.dart';
+import 'package:test123/view_model/theme/update_theme.dart';
+import '../test/test_view_model.dart';
 import '/resource/navigation/app_navigator.dart';
 import '/view_model/local/insecure_local_storage.dart';
 import '/utils/show/show_error/show_errors.dart';
@@ -37,6 +41,9 @@ Future<void> init() async {
   getIt.registerSingleton<NetworkBaseApiServices>(HttpNetwork(getIt()));
   getIt.registerSingleton<Connectivity>(Connectivity());
   getIt.registerSingleton<ShowError>(ShowError());
+  getIt.registerSingleton<ThemeViewModel>(ThemeViewModel());
+  getIt.registerSingleton<UpdateTheme>(UpdateTheme(getIt(), getIt()));
+  getIt.registerSingleton<GetTheme>(GetTheme(getIt(), getIt()));
 
   getIt.registerSingleton<InternetConnectivityCheckerViewModel>(
       InternetConnectivityCheckerViewModel(getIt(), getIt()));
@@ -45,12 +52,12 @@ Future<void> init() async {
 */
   getIt.registerSingleton<TestBaseApiServices>(TestRepository(getIt()));
   getIt.registerSingleton<TestViewModel>(
-      TestViewModel(getIt(), getIt(), getIt(), getIt()));
+      TestViewModel(getIt(), getIt(), getIt(), getIt(), getIt(), getIt()));
 /*
 ************************ Splash ************************
 */
   getIt.registerSingleton<SplashViewModel>(
-      SplashViewModel(getIt(), getIt(), getIt(), getIt()));
+      SplashViewModel(getIt(), getIt(), getIt(), getIt(), getIt()));
 
 /*
 ************************ SignUp ************************

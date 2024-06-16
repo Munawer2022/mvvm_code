@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
 import '/resource/global.dart';
@@ -8,6 +9,7 @@ import '/utils/routes/routes.dart';
 import '/utils/routes/routes_name.dart';
 import '/view_model/injection/multi_provider_list_injection.dart';
 import '/utils/show/checker_navigator_observer.dart';
+import 'view_model/theme/theme_view_model.dart';
 
 void main() async {
   // setCustomSystemUIOverlayStyle();
@@ -26,14 +28,20 @@ class MyApp extends StatelessWidget {
         designSize: const Size(430, 932),
         minTextAdapt: true,
         splitScreenMode: true,
-        child: MaterialApp(
-          navigatorKey: navigatorKey,
-          scaffoldMessengerKey: scaffoldMessengerKey,
-          navigatorObservers: [CheckerNavigatorObserver()],
-          debugShowCheckedModeBanner: false,
-          theme: lightTheme,
-          initialRoute: RoutesName.splash,
-          onGenerateRoute: Routes().generateRoute,
-        ),
+        child: BlocBuilder(
+            bloc: getIt<ThemeViewModel>(),
+            builder: (context, state) {
+              state as bool;
+              return MaterialApp(
+                navigatorKey: navigatorKey,
+                scaffoldMessengerKey: scaffoldMessengerKey,
+                navigatorObservers: [CheckerNavigatorObserver()],
+                debugShowCheckedModeBanner: false,
+                // theme: lightTheme,
+                theme: state ? darkTheme : lightTheme,
+                initialRoute: RoutesName.splash,
+                onGenerateRoute: Routes().generateRoute,
+              );
+            }),
       );
 }

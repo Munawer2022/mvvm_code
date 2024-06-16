@@ -3,7 +3,7 @@ import 'dart:async';
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:test123/utils/show/show_error/show_errors.dart';
+import '/utils/show/show_error/show_errors.dart';
 import '/resource/global.dart';
 
 class InternetConnectivityCheckerViewModel extends Cubit<bool> {

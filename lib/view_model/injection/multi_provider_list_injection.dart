@@ -5,6 +5,7 @@ import '../auth/login/login_view_model.dart';
 import '../auth/sign_up/sign_up_view_model.dart';
 import '../local/local_user_info_store_view_model.dart';
 import '../test/test_view_model.dart';
+import '../theme/theme_view_model.dart';
 import 'injection_container.dart';
 
 List<ChangeNotifierProvider> multiProvidersListInjection = [
@@ -20,6 +21,12 @@ List<ChangeNotifierProvider> multiProvidersListInjection = [
   ChangeNotifierProvider<ForgotPasswordViewModel>(
     create: (_) => getIt(),
   ),
+  // ChangeNotifierProvider<TestViewModel>(
+  //   create: (_) => getIt(),
+  // ),
+  // ChangeNotifierProvider<ThemeViewModel>(
+  //   create: (_) => getIt(),
+  // ),
   // ChangeNotifierProvider<LocalUserInfoStoreViewModel>(
   //   create: (_) => getIt(),
   // ),
