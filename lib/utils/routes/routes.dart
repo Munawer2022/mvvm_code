@@ -15,7 +15,7 @@ class Routes extends PageRoute with DefaultPageRoute {
       case RoutesName.splash:
         return getPageRoute(const SplashView());
       case RoutesName.login:
-        return getPageRoute(LoginView(cubit: getIt()),
+        return getPageRoute(const LoginView(),
             transitionType: TransitionType.slideFromLeft);
       case RoutesName.signUp:
         return getPageRoute(const SignUpView());
@@ -42,7 +42,6 @@ mixin DefaultPageRoute {
       builder: (_) => const Scaffold(
             body: Center(
               child: Text('No route defined'),
-              
             ),
           ));
 }

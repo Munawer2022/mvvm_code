@@ -32,10 +32,13 @@ class _TestViewState extends State<TestView> {
       appBar: AppBar(
         automaticallyImplyLeading: false,
         actions: [
-          BlocBuilder(
+          BlocBuilder<TestViewModel, TestState>(
               bloc: widget.cubit,
+              buildWhen: (previous, current) =>
+                  previous.isDarkTheme != current.isDarkTheme,
               builder: (context, state) {
-                state as TestState;
+                print('switcher');
+                // state as TestState;
                 return Switch(
                     inactiveTrackColor: Colors.red,
                     value: state.isDarkTheme,
@@ -48,10 +51,13 @@ class _TestViewState extends State<TestView> {
       ),
       body: Column(
         children: [
-          BlocBuilder(
+          BlocBuilder<TestViewModel, TestState>(
             bloc: widget.cubit,
+            buildWhen: (previous, current) =>
+                previous.response != current.response,
             builder: (context, state) {
-              state as TestState;
+              print('loading');
+              // state as TestState;
               return StatusSwitcher<TypedefTest>(
                   response: state.response,
                   onLoading: (context) => const LinearProgressIndicator(),

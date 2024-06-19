@@ -11,7 +11,7 @@ import '../test/test_view_model.dart';
 import '/resource/navigation/app_navigator.dart';
 import '/view_model/local/insecure_local_storage.dart';
 import '/utils/show/show_error/show_errors.dart';
-import '/view_model/auth/login/login_cubit.dart';
+import '/view_model/auth/login/login_bloc.dart';
 import '/view_model/internet_connectivity_checker_view_model.dart';
 import '/view_model/local/local_user_info_store_view_model.dart';
 import '/repository/auth/forgot_password/forgot_password_base_api_service.dart';

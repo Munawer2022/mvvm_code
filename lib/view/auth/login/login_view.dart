@@ -1,15 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:test123/view_model/auth/login/login_event.dart';
+import 'package:test123/view_model/injection/injection_container.dart';
 import '/resource/components/app_button.dart';
-import '/view_model/auth/login/login_cubit.dart';
+import '/view_model/auth/login/login_bloc.dart';
 import '/view_model/auth/login/login_state.dart';
 
 import '/model/auth/login/login_model.dart';
 
 class LoginView extends StatelessWidget {
-  final LoginViewModel cubit;
-  const LoginView({super.key, required this.cubit});
+  const LoginView({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -17,10 +18,8 @@ class LoginView extends StatelessWidget {
       body: SafeArea(
         child: Column(
           children: [
-            BlocBuilder(
-              bloc: cubit,
+            BlocBuilder<LoginViewModel, LoginState>(
               builder: (context, state) {
-                state as LoginState;
                 return Visibility(
                     visible: state.isLoading,
                     child: const LinearProgressIndicator());
@@ -28,10 +27,8 @@ class LoginView extends StatelessWidget {
             ),
             Expanded(
               child: Center(
-                child: BlocBuilder(
-                  bloc: cubit,
+                child: BlocBuilder<LoginViewModel, LoginState>(
                   builder: (context, state) {
-                    state as LoginState;
                     if (state.error != null) {
                       return Text(
                         state.error!,
@@ -40,12 +37,20 @@ class LoginView extends StatelessWidget {
                     }
                     return AppButton.getButton(
                         loading: state.isLoading,
-                        onPressed: () => cubit.login(
+                        onPressed: () => getIt<LoginViewModel>().add(Login(
                             body: LoginModel(
                                     username: 'emilys', password: 'emilyspass')
                                 .toJson(),
-                            context: context),
+                            context: context)),
                         child: const Text('Post API'));
+                    // return AppButton.getButton(
+                    //     loading: state.isLoading,
+                    //     onPressed: () => cubit.login(
+                    //         body: LoginModel(
+                    //                 username: 'emilys', password: 'emilyspass')
+                    //             .toJson(),
+                    //         context: context),
+                    //     child: const Text('Post API'));
                   },
                 ),
                 // Consumer<LoginViewModel>(
