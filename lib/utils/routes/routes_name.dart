@@ -8,4 +8,5 @@ class RoutesName {
 
   //home routes name
   static const String test = 'test';
+static const String test_detail = 'test_detail';
 }

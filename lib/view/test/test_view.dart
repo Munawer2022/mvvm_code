@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:test123/view_model/test/test_event.dart';
 import '/view_model/test/test_state.dart';
 
 import 'package:provider/provider.dart';
 import '/utils/typedef_models.dart';
+import '/view_model/test/test_bloc.dart';
 import '/view_model/test/test_cubit.dart';
 import '/resource/status_switcher.dart';
 import 'package:shimmer/shimmer.dart';
@@ -23,7 +25,10 @@ class _TestViewState extends State<TestView> {
   @override
   void initState() {
     super.initState();
-    cubit.onInit();
+    // cubit.onInit();
+    cubit.add(OnInit());
+    // context.read<TestViewModel>().onInit();
+    // context.read<TestViewModel>().add(OnInit());
   }
 
   @override
@@ -32,32 +37,34 @@ class _TestViewState extends State<TestView> {
       appBar: AppBar(
         automaticallyImplyLeading: false,
         actions: [
-          BlocBuilder<TestViewModel, TestState>(
+          BlocBuilder(
               bloc: widget.cubit,
-              buildWhen: (previous, current) =>
-                  previous.isDarkTheme != current.isDarkTheme,
+              // buildWhen: (previous, current) =>
+              //     previous.isDarkTheme != current.isDarkTheme,
               builder: (context, state) {
                 print('switcher');
-                // state as TestState;
+                state as TestState;
                 return Switch(
                     inactiveTrackColor: Colors.red,
                     value: state.isDarkTheme,
-                    onChanged: widget.cubit.onThemeChanged);
+                    // onChanged: (value) => cubit.onThemeChanged(value: value));
+                    onChanged: (value) =>
+                        cubit.add(OnThemeChanged(value: value)));
               }),
         ],
         title: ElevatedButton(
-            onPressed: () => widget.cubit.removeToken(context),
+            // onPressed: () => cubit.removeToken(context: context),
+            onPressed: () => cubit.add(RemoveToken(context: context)),
             child: const Text('remove')),
       ),
       body: Column(
         children: [
-          BlocBuilder<TestViewModel, TestState>(
+          BlocBuilder(
             bloc: widget.cubit,
-            buildWhen: (previous, current) =>
-                previous.response != current.response,
+            // buildWhen: (previous, current) =>
+            //     previous.response != current.response,
             builder: (context, state) {
-              print('loading');
-              // state as TestState;
+              state as TestState;
               return StatusSwitcher<TypedefTest>(
                   response: state.response,
                   onLoading: (context) => const LinearProgressIndicator(),
@@ -67,7 +74,9 @@ class _TestViewState extends State<TestView> {
           ),
           Expanded(
             child: RefreshIndicator.adaptive(
-              onRefresh: widget.cubit.refresh,
+              onRefresh: () async =>
+                  //  cubit.refresh(context: context),
+                  cubit.add(Refresh(context: context)),
               child: ListView(
                 children: [
                   BlocBuilder(
@@ -91,10 +100,16 @@ class _TestViewState extends State<TestView> {
                               )),
                           onError: (context, message) => const SizedBox(),
                           onCompleted: (context, data) => Center(
-                              child: Text(data.email,
-                                  style: Theme.of(context)
-                                      .textTheme
-                                      .titleMedium)));
+                                  child: ListTile(
+                                // onTap: () => cubit.navigateToTestDetail(
+                                //     context: context, model: data),
+                                onTap: () => cubit.add(NavigateToTestDetail(
+                                    context: context, model: data)),
+                                title: Text(data.email,
+                                    style: Theme.of(context)
+                                        .textTheme
+                                        .titleMedium),
+                              )));
                     },
                   ),
                 ],
@@ -106,6 +121,7 @@ class _TestViewState extends State<TestView> {
     );
   }
 }
+
 // import 'package:flutter/material.dart';
 // import 'package:flutter/widgets.dart';
 // import 'package:flutter_bloc/flutter_bloc.dart';

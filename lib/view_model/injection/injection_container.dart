@@ -1,4 +1,9 @@
 /*
+ ************************ TestDetail ************************
+*/
+import '/view_model/test_detail/test_detail_view_model.dart';
+
+/*
 ************************ hello_detail ************************
 */
 
@@ -12,7 +17,7 @@ import '/resource/navigation/app_navigator.dart';
 import '/view_model/local/insecure_local_storage.dart';
 import '/utils/show/show_error/show_errors.dart';
 import '/view_model/auth/login/login_bloc.dart';
-import '/view_model/internet_connectivity_checker_view_model.dart';
+import '../internet_connectivity/internet_connectivity_checker_view_model.dart';
 import '/view_model/local/local_user_info_store_view_model.dart';
 import '/repository/auth/forgot_password/forgot_password_base_api_service.dart';
 import '/data/network/http_network.dart';
@@ -24,6 +29,7 @@ import '/repository/test/test_base_api_service.dart';
 import '/repository/test/test_repository.dart';
 import '/view_model/auth/login/login_view_model.dart';
 import '/view_model/auth/sign_up/sign_up_view_model.dart';
+import '/view_model/test/test_bloc.dart';
 import '/view_model/test/test_cubit.dart';
 
 import '/repository/auth/forgot_password/forgot_password_repository.dart';
@@ -79,4 +85,8 @@ Future<void> init() async {
   getIt.registerSingleton<LoginBaseApiServices>(LoginRepository(getIt()));
   getIt.registerSingleton<LoginViewModel>(
       LoginViewModel(getIt(), getIt(), getIt(), getIt(), getIt()));
+/*
+************************ TestDetail ************************
+*/
+  getIt.registerSingleton<TestDetailViewModel>(TestDetailViewModel());
 }

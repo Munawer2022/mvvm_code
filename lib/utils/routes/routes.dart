@@ -1,3 +1,6 @@
+import 'package:test123/model/test/test_model.dart';
+
+import '/view/test_detail/test_detail_view.dart';
 import 'package:flutter/material.dart';
 import '/resource/navigation/transition_type.dart';
 import '/view/auth/forgot_password/forgot_password_view.dart';
@@ -15,7 +18,7 @@ class Routes extends PageRoute with DefaultPageRoute {
       case RoutesName.splash:
         return getPageRoute(const SplashView());
       case RoutesName.login:
-        return getPageRoute(const LoginView(),
+        return getPageRoute(LoginView(viewModel: getIt()),
             transitionType: TransitionType.slideFromLeft);
       case RoutesName.signUp:
         return getPageRoute(const SignUpView());
@@ -23,6 +26,12 @@ class Routes extends PageRoute with DefaultPageRoute {
         return getPageRoute(const ForgotPasswordView());
       case RoutesName.test:
         return getPageRoute(TestView(cubit: getIt()));
+
+      case RoutesName.test_detail:
+        return getPageRoute(TestDetailView(
+          cubit: getIt(),
+          model: settings.arguments as Map<String, TestModel>,
+        ));
       default:
         return getDefaultRoute();
     }

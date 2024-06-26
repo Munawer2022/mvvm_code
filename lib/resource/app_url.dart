@@ -7,4 +7,5 @@ class AppUrl {
 
   static var test = '$baseUrl/auth/me';
   // static var test = 'https://jsonplaceholder.typicode.com/users';
+
 }

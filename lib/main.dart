@@ -7,7 +7,6 @@ import '/resource/app_theme.dart';
 import '/utils/routes/routes.dart';
 import '/utils/routes/routes_name.dart';
 import '/utils/show/checker_navigator_observer.dart';
-import 'view_model/injection/multi_bloc_list_injection.dart';
 import 'view_model/injection/multi_provider_list_injection.dart';
 import 'view_model/theme/theme_view_model.dart';
 import 'package:provider/provider.dart';
@@ -16,10 +15,8 @@ void main() async {
   // setCustomSystemUIOverlayStyle();
   WidgetsFlutterBinding.ensureInitialized();
   await init();
-  runApp(
-      MultiBlocProvider(providers: multiBlocListInjection, child: const MyApp())
-      // MultiProvider(
-      //     providers: multiProvidersListInjection, child: const MyApp())
+  runApp(MultiProvider(
+          providers: multiProvidersListInjection, child: const MyApp())
       // const MyApp()
       );
 }
