@@ -18,7 +18,7 @@ class HttpNetwork implements NetworkBaseApiServices {
       final response = await http.get(
         Uri.parse(url),
         headers: {
-          'Authorization': 'Bearer ${_userInfoDataSources.state.token}'
+          'Authorization': 'Bearer ${_userInfoDataSources.state.userInfo.token}'
           // 'Authorization': 'Bearer ${_userInfoDataSources.userInfo.token}'
         },
       ).timeout(const Duration(seconds: 10));
@@ -67,7 +67,8 @@ class HttpNetwork implements NetworkBaseApiServices {
         body: body,
         headers: headers ??
             {
-              'Authorization': 'Bearer ${_userInfoDataSources.state.token}'
+              'Authorization':
+                  'Bearer ${_userInfoDataSources.state.userInfo.token}'
               // 'Authorization': 'Bearer ${_userInfoDataSources.userInfo.token}'
             },
       ).timeout(const Duration(seconds: 10));

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:test123/view_model/local/local_user_info_store_event.dart';
 import 'package:test123/view_model/test/test_event.dart';
 import 'package:test123/view_model/theme/get_theme.dart';
 import '../test/test_view_model.dart';
@@ -26,13 +27,16 @@ class SplashViewModel {
                     userInfo.token.toString() == ''
                 ? _navigator.pushNamed(
                     context: context, routeName: RoutesName.login)
-                : _userInfoDataSources
-                    .setUserInfoDataSources(userInfo: userInfo)
-                    .then((value) {
-                    _viewModel.add(Test(context: context));
+                : {
+                    _userInfoDataSources
+                        // .setUserInfoDataSources(userInfo: userInfo)
+                        .add(SetUserInfoDataSources(userInfo: userInfo)),
+                    // .then((value) {
+                    _viewModel.add(Test(context: context)),
                     _navigator.pushNamed(
-                        context: context, routeName: RoutesName.test);
-                  })
+                        context: context, routeName: RoutesName.test)
+                  }
+        // })
 
         // Future.delayed(const Duration(seconds: 2),
         //     () => _navigator.pushNamed(context, RoutesName.test)

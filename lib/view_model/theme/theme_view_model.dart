@@ -1,12 +1,20 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter/material.dart';
 
-class ThemeViewModel extends Cubit<bool> {
-  ThemeViewModel() : super(false);
+import 'theme_event.dart';
 
-  void setTheme(bool isDarkTheme) => emit(isDarkTheme);
+class ThemeViewModel extends Bloc<ThemeEvent, bool> {
+  ThemeViewModel() : super(false) {
+    on<SetTheme>(_setTheme);
+  }
+
+  void _setTheme(SetTheme event, Emitter<bool> emit) => emit(event.isDarkTheme);
 }
+// class ThemeViewModel extends Cubit<bool> {
+//   ThemeViewModel() : super(false);
 
-// import 'package:flutter/material.dart';
+//   void setTheme(bool isDarkTheme) => emit(isDarkTheme);
+// }
 
 // class ThemeViewModel extends ChangeNotifier {
 //   bool _isDarkTheme = false;

@@ -51,8 +51,7 @@ class TestViewModel extends Bloc<TestEvent, TestState> {
     });
   }
 
-  Future<InsecureLocalStorage> _removeToken(
-          RemoveToken event, Emitter<TestState> emit) async =>
+  Future<void> _removeToken(RemoveToken event, Emitter<TestState> emit) async =>
       await _localStorage
           .removeUserInfo()
           .then((value) => _navigator.pushNamedAndRemoveUntil(
@@ -64,7 +63,7 @@ class TestViewModel extends Bloc<TestEvent, TestState> {
   void _onThemeChanged(OnThemeChanged event, Emitter<TestState> emit) =>
       _updateTheme.updateTheme(event.value);
 
-  Future<AppNavigator> _navigateToTestDetail(
+  Future<void> _navigateToTestDetail(
           NavigateToTestDetail event, Emitter<TestState> emit) async =>
       await _navigator.pushNamed(
           context: event.context,

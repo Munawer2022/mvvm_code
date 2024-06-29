@@ -29,7 +29,7 @@ class ForgotPasswordViewModel extends ChangeNotifier {
     _baseApiService.forgotPassword(body: body).then((userInfo) {
       setLoading(false);
       _userInfo.saveUserInfo(userInfo: userInfo).then((value) {
-        _userInfoDataSources.setUserInfoDataSources(userInfo: userInfo);
+        // _userInfoDataSources.setUserInfoDataSources(userInfo: userInfo);
         _navigator.pushNamed(context: context, routeName: RoutesName.login);
       });
     }).onError((error, stackTrace) => setLoading(false));

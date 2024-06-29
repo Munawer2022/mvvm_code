@@ -1,3 +1,5 @@
+import 'package:test123/view_model/theme/theme_event.dart';
+
 import '/resource/global.dart';
 
 import '/view_model/local/insecure_local_storage.dart';
@@ -14,6 +16,7 @@ class GetTheme {
   );
 
   Future<void> getTheme() async => _localStorage.getBool(key: themeKey).then(
-        (isDarkTheme) => _theme.setTheme(isDarkTheme),
+        // (isDarkTheme) => _theme.setTheme(isDarkTheme),
+        (isDarkTheme) => _theme.add(SetTheme(isDarkTheme: isDarkTheme)),
       );
 }
